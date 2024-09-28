@@ -10,6 +10,27 @@ function App() {
   const [todos, setTodos] = useState([]);
   const [darkMode, setDarkMode] = useState(true);
   const [theme, setTheme] = useState('green'); // Theme selector
+  const [quote, setQuote] = useState(""); // State for storing the motivational quote
+
+  // List of motivational quotes
+  const motivationalQuotes = [
+    "Believe you can and you're halfway there.",
+    "Don’t watch the clock; do what it does. Keep going.",
+    "You are never too old to set another goal or to dream a new dream.",
+    "Success is not final, failure is not fatal: It is the courage to continue that counts.",
+    "What you get by achieving your goals is not as important as what you become by achieving your goals."
+  ];
+
+  // Function to pick a random quote
+  const getRandomQuote = () => {
+    const randomIndex = Math.floor(Math.random() * motivationalQuotes.length);
+    return motivationalQuotes[randomIndex];
+  };
+
+  // Display a new quote when todos are updated
+  useEffect(() => {
+    setQuote(getRandomQuote());
+  }, [todos]);
 
   const addTodo = (todo) => {
     setTodos((prev) => [{ id: Date.now(), ...todo }, ...prev]);
@@ -100,6 +121,11 @@ function App() {
           <h1 className="text-3xl font-bold text-center mb-8 tracking-wider">
             Manage Your Todos
           </h1>
+
+          {/* Motivational Quote */}
+          <div className="text-center text-xl italic text-gray-500 mb-4">
+            "{quote}"
+          </div>
 
           {/* Progress Bar */}
           <div className="w-full bg-gray-200 rounded-full h-3 mb-6 overflow-hidden">
